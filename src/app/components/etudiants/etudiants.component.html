@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <h2 class="text-center text-primary">Gestion des Étudiants</h2>
+
+  <form (ngSubmit)="enregistrer()" class="mb-3">
+    <div class="row g-2">
+      <div class="col"><input type="text" class="form-control" placeholder="Nom" [(ngModel)]="newEtudiant.nom" name="nom" required></div>
+      <div class="col"><input type="text" class="form-control" placeholder="Prénom" [(ngModel)]="newEtudiant.prenom" name="prenom" required></div>
+      <div class="col"><input type="email" class="form-control" placeholder="Email" [(ngModel)]="newEtudiant.email" name="email" required></div>
+      <div class="col"><input type="text" class="form-control" placeholder="Téléphone" [(ngModel)]="newEtudiant.tel" name="tel" required></div>
+      <div class="col"><input type="date" class="form-control" [(ngModel)]="newEtudiant.date_naissance" name="date_naissance" required></div>
+      <div class="col"><input type="text" class="form-control" placeholder="Filière" [(ngModel)]="newEtudiant.filiere" name="filiere" required></div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-success">{{ modifier ? 'Modifier' : 'Ajouter' }}</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Annuler</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Chercher par nom ou matricule" [(ngModel)]="searchText">
+  </div>
+
+<div class="container mt-4">
+
+
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Date de Naissance</th>
+          <th>Filière</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="etudiants.length > 0; else noData">
+        <tr *ngFor="let et of etudiantsFiltres">
+          <td>{{ et.nom }}</td>
+          <td>{{ et.prenom }}</td>
+          <td>{{ et.email }}</td>
+          <td>{{ et.tel }}</td>
+          <td>{{ et.date_naissance | date:'dd/MM/yyyy' }}</td>
+          <td>{{ et.filiere }}</td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm me-2" (click)="editer(et)">
+               Modifier
+            </button>
+            <button class="btn btn-outline-danger btn-sm" (click)="supprimer(et.id!)">
+               Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noData>
+      <tr>
+        <td colspan="7" class="text-center text-muted p-4">Aucun étudiant trouvé.</td>
+      </tr>
+    </ng-template>
+  </div>
+</div>
+
+
+</div>
